@@ -13,21 +13,19 @@ hotURL = []
 hotScore = []
 hotSubreddit = []
 
+hot = reddit.subreddit("ProgrammerHumor").hot(limit = 100)
+for post in hot:
+    hotTitle.append(post.title)
+    hotURL.append(post.url)
+    hotScore.append(post.score)
+    hotSubreddit.append(post.subreddit)
+
 @client.event
 async def on_ready():
   print("INITIATION SEQUENCE COMPLETE.")
 
 @client.command()
 async def spawn(ctx):
-
-    hot = reddit.subreddit("ProgrammerHumor").hot(limit = 100)
-    for post in hot:
-        hotTitle.append(post.title)
-        hotURL.append(post.url)
-        hotScore.append(post.score)
-        hotSubreddit.append(post.subreddit)
-
-
     value = random.randint(0,100)
     embed = discord.Embed(
         title = hotTitle[value],
@@ -38,4 +36,4 @@ async def spawn(ctx):
     embed.set_author(name = hotSubreddit[value])
     await ctx.send(embed = embed)
 
-client.run("TOKEN")
+client.run("ODAzMjkwNzIyMzcwOTc3ODUy.YA7oyA.zdBsD99cbTtSVNqvJBoXdg53le4")
