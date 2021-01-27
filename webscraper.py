@@ -8,17 +8,11 @@ client = commands.Bot(command_prefix = "<", intents=intents)
 
 reddit = praw.Reddit(client_id = "ytPzAKfrCU_8Xw", client_secret = "qR6CPHmaA-E_OX2HQv1bnEajptG2Fw", user_agent = "Reddit Bot")
 
-hotTitle = []
-hotURL = []
-hotScore = []
-hotSubreddit = []
+hotPost = []
 
 hot = reddit.subreddit("ProgrammerHumor").hot(limit = 100)
 for post in hot:
-    hotTitle.append(post.title)
-    hotURL.append(post.url)
-    hotScore.append(post.score)
-    hotSubreddit.append(post.subreddit)
+    hotPost.append([post.title, post.url, post.score])
 
 @client.event
 async def on_ready():
@@ -28,12 +22,12 @@ async def on_ready():
 async def spawn(ctx):
     value = random.randint(0,100)
     embed = discord.Embed(
-        title = hotTitle[value],
+        title = hotPost[value][0],
         colour = discord.Colour.orange()
     )
-    embed.set_footer(text = "👍 " + str(hotScore[value]))
-    embed.set_image(url = hotURL[value])
-    embed.set_author(name = hotSubreddit[value])
+    embed.set_footer(text = "👍 " + str(hotPost[value][2]))
+    embed.set_image(url = hotPost[value][1])
+    embed.set_author(name = "ProgrammerHumor")
     await ctx.send(embed = embed)
 
-client.run("ODAzMjkwNzIyMzcwOTc3ODUy.YA7oyA.zdBsD99cbTtSVNqvJBoXdg53le4")
+client.run("TOKEN")
